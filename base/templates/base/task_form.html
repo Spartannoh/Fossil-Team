@@ -1,0 +1,70 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<div class="header-bar">
+    <div>
+        <a href="{% url 'tasks' %}">&#8592; Voltar</a>
+        <h1 style="text-align: center;">Editor de Tarefas</h1>
+    </div>
+</div>
+
+<div class="card-body">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div>
+            <label for="id_título">Título:</label>
+            {{ form.título }}
+        </div>
+        <div>
+            <br><label for="id_descrição">Descrição:</label>
+            {{ form.descrição }}
+        </div>
+        <div style="text-align: center;">
+            <label for="id_completa" style="display: inline-block; width: 100px; text-align: right; margin-right: 1px;">Completa</label>
+            {{ form.completa }}
+        </div>
+        <br><input class="button" type="submit" value="Criar"> 
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector("[name='título']").classList.add("button");
+        document.querySelector("[name='descrição']").classList.add("button");
+    });
+</script>
+
+
+<style>
+    .header-message {
+        background-color: #549CC6;
+        color: #E7E6E1;
+        padding: 15px 0; 
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999; 
+    }
+
+    .header-message p {
+        font-size: 48px; 
+        margin: 0;
+        line-height: 50px; 
+
+    }
+
+    .header-message a {
+        text-decoration: none
+    }
+    
+</style>
+<body>
+    <div class="header-message">
+        <p><a href="{% url 'tasks' %}">ToDo List</a></p>
+    </div>
+</body>
+
+
+{% endblock content %}

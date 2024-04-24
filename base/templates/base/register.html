@@ -1,0 +1,73 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<div class="header-bar">
+    <div>
+        <h1 style="text-align: center;">Registre-se</h1>
+    </div>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        <label for="id_username">Usuário:</label>
+        {{ form.username }}
+        <p>Obrigatório. 150 caracteres ou menos. Somente letras, dígitos e @/./+/-/_.</p>
+    </div>
+    <div>
+        <label for="id_password1">Senha:</label>
+        {{ form.password1 }}
+    </div>
+    <div>
+        <label for="id_password2">Confirme a senha:</label>
+        {{ form.password2 }}
+        <p>
+            Sua senha não pode ser muito semelhante ao seu usuário.<br>
+            Sua senha deve conter pelo menos 8 caracteres.<br>
+            Sua senha não pode ser uma senha comumente usada.<br>
+            Sua senha não pode ser totalmente numérica.
+        </p>
+    </div>
+    
+    <input class="button" type="submit" value="Registrar">
+</form>
+
+<p>Já possui uma conta? <a href="{% url 'login' %}">Login</a></p>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector("[name='username']").classList.add("button");
+        document.querySelector("[name='password1']").classList.add("button");
+        document.querySelector("[name='password2']").classList.add("button");
+    });
+</script>
+
+
+<style>
+    .header-message {
+        background-color: #549CC6;
+        color: #E7E6E1;
+        padding: 15px 0; 
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999; 
+    }
+
+    .header-message a {
+        font-size: 48px; 
+        margin: 0;
+        line-height: 50px; 
+        text-decoration: none;
+    }
+</style>
+<body>
+    <div class="header-message">
+        <p><a href="{% url 'login' %}">ToDo List</a></p>
+    </div>
+</body>
+
+
+{% endblock content %}

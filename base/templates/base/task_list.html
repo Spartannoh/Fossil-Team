@@ -1,0 +1,74 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<div class="header-bar">
+    <div>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a> {% else %}
+        <a href="{% url 'login' %}">Login</a> {% endif %}
+        <h1 style="text-align: center;">ToDo List</h1>
+    </div>
+</div>
+
+
+<div id="search-add-wrapper">
+    <form method="GET" style="margin-top: 20px;display: flex;">
+        <input class="button" type="text" name="search-area" value="{{search_input}}">
+        <input class="button" type="submit" value="&#128269;">
+    </form>
+    <a id="add-link" href="{% url 'task-create' %}">&#x2b;</a>
+</div>
+
+
+<hr>
+<h3 style="text-align: center;">Você tem {{count}} tarefa{{ count|pluralize:"s" }} incompleta{{ count|pluralize:"s" }}!</h3>
+<div class="task-items-wrapper">
+    {% for task in tasks %}
+    <div class="task-wrapper">
+        {% if task.completa %}
+        <div class="task-title">
+            <div class="task-complete-icon"></div>
+            <i><s><a href="{% url 'task-update' task.id %}">{{task}}</a></s></i>
+        </div>
+        <a class="delete-link" href="{%url 'task-delete' task.id %}">&#215;</a>
+        {% else %}
+        <div class="task-title">
+            <div class="task-incomplete-icon"></div>
+            <a href="{% url 'task-update' task.id %}">{{task}}</a>
+        </div>
+        <a class="delete-link" href="{%url 'task-delete' task.id %}">&#215;</a>
+        {% endif %}
+    </div>
+
+    {% empty %}
+    <h3>Lista de tarefas vazia!</h3>
+    {% endfor %}
+
+    <style>
+        .header-message {
+            background-color: #549CC6;
+            color: #E7E6E1;
+            padding: 15px 0; 
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999; 
+        }
+
+        .header-message p {
+            font-size: 32px; 
+            margin: 0;
+            line-height: 50px; 
+
+        }
+    </style>
+    <body>
+        <div class="header-message">
+            <p>Bem vindo, {{request.user}}!</p>
+        </div>
+    </body>
+</div>
+
+{% endblock content %}

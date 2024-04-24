@@ -1,0 +1,50 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<div class="header-bar">
+    <div>
+        <a href="{% url 'tasks' %}">&#8592; Voltar</a>
+    </div>
+</div>
+
+<div class="card-body">
+    <form method="POST">
+        {% csrf_token %}
+        <p>Tem certeza, que deseja apagar a tarefa "{{task}}"?</p>
+        <input class="button" type="submit" value="Apagar">
+    </form>
+</div>
+
+
+<style>
+    .header-message {
+        background-color: #549CC6;
+        color: #E7E6E1;
+        padding: 15px 0; 
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999; 
+    }
+
+    .header-message p {
+        font-size: 48px; 
+        margin: 0;
+        line-height: 50px; 
+
+    }
+
+    .header-message a {
+        text-decoration: none;
+    }
+</style>
+<body>
+    <div class="header-message">
+        <p><a href="{% url 'tasks' %}">ToDo List</a></p>
+    </div>
+</body>
+
+
+{% endblock content %}
